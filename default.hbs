@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="{{@site.locale}}">
+<head>
+    {{!-- Document Settings --}}
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    {{!-- Base Meta --}}
+    <title>{{meta_title}}</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {{!-- Stylesheets --}}
+    <link rel="stylesheet" href="{{asset "built/styles.min.css"}}">
+
+    {{!-- This tag outputs SEO meta+structured data and other important settings --}}
+    {{ghost_head}}
+</head>
+<body class="{{body_class}}">
+
+  <header class="site-header">
+    <nav class="site-nav container">
+      <a href="{{@site.url}}" class="site-logo">
+        {{#if @site.logo}}
+          <img src="{{@site.logo}}" alt="{{@site.title}}" />
+        {{else}}
+          <img src="assets/images/logo.png" alt="{{@site.title}}" />
+        {{/if}}
+      </a>
+      <span class="nav-toggle">{{t "Menu"}} <i class="fas fa-chevron-down"></i></span>
+
+      {{#if @site.navigation}}
+        {{navigation}}
+      {{/if}}
+    </nav>
+  </header>
+
+  <div class="site-wrapper">
+
+    {{> "notifications"}}
+
+    {{!-- All the main content gets inserted here, index.hbs, post.hbs, etc --}}
+    {{{body}}}
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="copyright">
+          <p>&copy; {{date format="YYYY"}} {{@site.title}}. {{t "Published with"}} <a href="https://ghost.org?lmref=5tLgCA" target="_blank" rel="noopener" class="published-by">Ghost</a>.</p>
+        </div>
+
+        <nav class="social-links">
+          <ul>
+            {{#if @site.facebook}}<li class="social-link"><a href="{{facebook_url @site.facebook}}"><i class="fab fa-facebook"></i></a></li>{{/if}}
+            {{#if @site.twitter}}<li class="social-link"><a href="{{twitter_url @site.twitter}}"><i class="fab fa-twitter"></i></a></li>{{/if}}
+          </ul>
+        </nav>
+      </div>
+    </footer>
+
+  </div>
+
+  <script type="text/javascript" src="{{asset "built/scripts.min.js"}}"></script>
+
+  {{!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. --}}
+  {{{block "scripts"}}}
+
+  {{!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag --}}
+  {{ghost_foot}}
+
+</body>
+</html>

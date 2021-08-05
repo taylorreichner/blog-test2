@@ -1,0 +1,48 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template --}}
+
+{{> header background=@site.cover_image}}
+  <div class="container">
+    <div class="hero-content">
+      <h1 class="site-name">{{@site.title}}</h1>
+      <h2 class="site-description">{{@site.description}}</h2>
+    </div>
+
+    <div class="hero-search">
+      {{> "search"}}
+    </div>
+  </div>
+</section>
+
+<main id="site-main" class="container">
+  <div class="tag-list">
+    {{#get "tags" limit="all" include="count.posts" order="count.posts desc"}}
+      {{#foreach tags}}
+      <article id="tag-{{id}}" class="tag-card">
+        <div class="tag-card-inner">
+          <h3 class="tag-card-title"><a href="{{url}}">{{name}}</a></h3>
+
+          {{#get "posts" limit="5" filter="tags:[{{slug}}]+id:-{{id}}" include="tags"}}
+          <div class="tag-card-content">
+            <ul>
+              {{#foreach posts visibility="all"}}
+              <li class="post-access-{{visibility}}"><a href="{{url}}">{{title}}</a></li>
+              {{/foreach}}
+            </ul>
+          </div>
+          {{/get}}
+
+          {{#get "posts" filter="tags:[{{slug}}]+id:-{{id}}" include="tags"}}
+          <a href="{{../url}}" class="tag-card-read-more">
+            {{plural posts.length empty=(t "No articles") singular=(t "See 1 article") plural=(t "See all % articles")}} →
+          </a>
+          {{/get}}
+        </div>
+      </article>
+      {{/foreach}}
+    {{/get}}
+  </div>
+</main>
+
+{{> "subscribe-form"}}

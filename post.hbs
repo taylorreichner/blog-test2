@@ -1,0 +1,72 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template --}}
+
+{{#post}}
+
+{{> header background=feature_image}}
+  <div class="container">
+    <div class="hero-search full-width">
+      {{> "search"}}
+    </div>
+  </div>
+</section>
+
+<main id="site-main">
+  <div class="container">
+    {{> "breadcrumbs"}}
+
+    <div class="inner">
+      <article>
+        <header class="post-header">
+          <h1 class="post-title">{{title}}</h1>
+        </header>
+
+        <section class="post-content">
+          {{#if access}}
+            {{content}}
+          {{else}}
+            {{> "members-gate"}}
+          {{/if}}
+        </section>
+
+        <footer class="post-card-footer post-meta">
+          {{> "author-list"}}
+          <span class="reading-time">{{t "Updated"}} <time class="post-full-meta-date" datetime="{{date updated_at format="YYYY-MM-DD"}}">{{date updated_at timeago="true"}}</time></span>
+        </footer>
+      </article>
+    </div>
+  </div>
+</main>
+
+<section class="post-full-comments container">
+    {{> "comments"}}
+</section>
+
+<aside class="related-articles">
+  <div class="container">
+    <div class="read-next-feed">
+      {{#if primary_tag}}
+      {{#get "posts" filter="tags:{{primary_tag.slug}}+id:-{{id}}" limit="5" as |related_posts|}}
+        {{#if related_posts}}
+        <article id="related-article-{{id}}" class="tag-card">
+          <div class="tag-card-inner">
+            <h3 class="tag-card-title">{{t "Related articles"}}</h3>
+
+            <div class="tag-card-content">
+                <ul>
+                  {{#foreach related_posts}}
+                  <li><a href="{{url}}">{{title}}</a></li>
+                  {{/foreach}}
+                </ul>
+            </div>
+          </div>
+        </article>
+        {{/if}}
+      {{/get}}
+      {{/if}}
+    </div>
+  </div>
+</aside>
+
+{{/post}}

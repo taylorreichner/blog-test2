@@ -1,0 +1,16 @@
+{{#unless @member}}
+  <section id="subscribe">
+    <div class="container">
+      <h3 class="members-form-title">{{t "Join Our Newsletter"}}</h3>
+      <p class="members-form-subtitle">Get the latest updates delivered right to your inbox</p>
+
+      <form class="members-form" data-members-form="subscribe">
+        <div class="notification notification-success"><b>{{t "Great!"}}</b> {{t "Check your inbox and click the link to complete subscription"}}</div>
+        <div class="notification notification-error">{{t "Please enter a valid email address!"}}</div>
+
+        <input data-members-email type="email" placeholder="Your email address" required="true" autocomplete="false" />
+        <input type="submit" value="{{t "Subscribe"}}" />
+      </form>
+    </div>
+  </section>
+{{/unless}}

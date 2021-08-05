@@ -1,0 +1,61 @@
+{{^is "home"}}
+<nav class="breadcrumbs">
+  <ol class="breadcrumbs-items">
+    <li class="breadcrumb-item"><a href="{{@site.url}}">{{t "Home"}}</a></li>
+    {{#is "page"}}
+      <li class="breadcrumb-item">{{title}}</li>
+    {{/is}}
+    {{#is "tag"}}
+      <li class="breadcrumb-item">{{tag.name}}</li>
+    {{/is}}
+    {{#is "post"}}{{#primary_tag}}
+      <li class="breadcrumb-item"><a href="{{url absolute="yes"}}">{{name}}</a></li>
+      {{/primary_tag}}
+      <li class="breadcrumb-item">{{title}}</li>
+    {{/is}}
+    {{#is "author"}}
+      <li class="breadcrumb-item">{{t "Author"}}</li>
+      <li class="breadcrumb-item">{{name}}</li>
+    {{/is}}
+    {{#is "subscribe"}}
+      <li class="breadcrumb-item">{{t "Subscribe"}}</li>
+    {{/is}}
+    {{#is "signin"}}
+      <li class="breadcrumb-item">{{t "Sign In"}}</li>
+    {{/is}}
+    {{#is "signup"}}
+      <li class="breadcrumb-item">{{t "Sign Up"}}</li>
+    {{/is}}
+    {{#is "account"}}
+      <li class="breadcrumb-item">{{t "Account"}}</li>
+    {{/is}}
+  </ol>
+
+  {{#is "post"}}
+  <ul class="social-links">
+      <li class="social-link tippy" data-tippy-content="{{t "Share on Twitter"}}">
+        <a href="https://twitter.com/share?text={{encode title}}&amp;url={{url absolute="true"}}"
+        onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+      <li class="social-link tippy" data-tippy-content="{{t "Share on Facebook"}}">
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{url absolute="true"}}"
+        onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+      </li>
+      <li class="social-link tippy" data-tippy-content="{{t "Share via Email"}}">
+        <a href="mailto:?subject={{ encode title }}&body={{ url absolute='true' }}">
+          <i class="far fa-envelope"></i>
+        </a>
+      </li>
+      <li class="social-link tippy" data-tippy-content="{{t "Print this page"}}">
+        <a href="javascript:;" class="print-page">
+          <i class="fas fa-print"></i>
+        </a>
+      </li>
+  </ul>
+  {{/is}}
+</nav>
+{{/is}}

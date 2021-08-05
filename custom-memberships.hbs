@@ -1,0 +1,41 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template --}}
+
+{{> header background=@site.cover_image}}
+  <div class="container">
+    <div class="hero-search full-width">
+      {{> "search"}}
+    </div>
+  </div>
+</section>
+
+{{#post}}
+
+<main id="site-main">
+  <div class="container">
+
+    {{> "breadcrumbs"}}
+
+    <div class="page-header">
+      <h1 class="page-header-title">{{title}}</h1>
+    </div>
+
+    <article>
+      <section class="post-content">
+        {{content}}
+
+        {{> "membership-plans" include-free="true"}}
+
+        {{^if @member}}
+        <div class="membership-footer">
+          <small>{{t "Already have an account?"}} <a href="{{@site.url}}/signin/">{{t "Sign in"}}</a></small>
+        </div>
+        {{/if}}
+      </section>
+    </article>
+
+  </div>
+</main>
+
+{{/post}}
